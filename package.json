@@ -9,5 +9,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RodnyE/Chat.git"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
