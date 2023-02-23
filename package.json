@@ -11,6 +11,10 @@
     "url": "git+https://github.com/RodnyE/Chat.git"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^6.9.2",
+    "jsonwebtoken": "^9.0.0",
+    "socket.io": "^4.6.1",
+    "bcryptjs" : "^2.4.3"
   }
 }
