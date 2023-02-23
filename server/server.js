@@ -6,6 +6,7 @@ const {
     TEST_MODE, 
     PORT, 
     URL, 
+    URLDB,
     CLIENT
 } = require("../config.js");
 
