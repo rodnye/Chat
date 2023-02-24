@@ -18,9 +18,8 @@ const mongoose = require("mongoose");
 server.use("/", express.static(CLIENT));
 
 // database conection
-mongoose.connect(process.env.URLDB, {
+mongoose.connect(URLDB, {
     useNewUrlParser: true,
-    useCreateIndex: true,
     useUnifiedTopology: true
 }, (err) => {
     if (err) throw err;
