@@ -1,35 +1,44 @@
 /**
  * Server
  */
- 
+
 const {
-    TEST_MODE, 
-    PORT, 
-    URL, 
-    URLDB,
-    CLIENT
+  TEST_MODE,
+  PORT,
+  URL,
+  URLDB,
+  USERDB,
+  PASSDB,
+  CLIENT
 } = require("../config.js");
 
 const express = require("express");
 const server = express();
-const mongoose = require("mongoose");
+const Sequelize = require("sequelize");
 
 // public client folder
 server.use("/", express.static(CLIENT));
 
 // database conection
-mongoose.connect(URLDB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, (err) => {
-    if (err) throw err;
-        
-    console.log("Database online");
+const sequelize = new Sequelize(URLDB, USERDB, PASSDB, {
+  dialect: 'mysql',
+  dialectOptions: {
+
+  }
 });
+
+(async () => {
+  try {
+    console.log("a");
+    await sequelize.authenticate();
+    console.log("Connected to Database.")
+  } catch (err) {
+    throw new Error("" + err)
+  }
+})();
 
 // start server
 server.listen(PORT, () => {
-    if (TEST_MODE) console.log(":::TEST_MODE enabled:::");
-    console.log("Client running...", URL);
+  if (TEST_MODE) console.log(":::TEST_MODE enabled:::");
+  console.log("Client running...", URL);
 });
-
