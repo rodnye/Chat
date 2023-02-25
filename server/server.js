@@ -21,7 +21,7 @@ const Sequelize = require("sequelize");
 server.use("/", express.static(CLIENT));
 
 // database conection
-const sequelize = new Sequelize(URLDB +  ":" + PORTDB, USERDB, PASSDB, {
+const sequelize = new Sequelize(URLDB, USERDB, PASSDB, {
   dialect: 'mysql',
   dialectOptions: {
 
@@ -34,7 +34,8 @@ const sequelize = new Sequelize(URLDB +  ":" + PORTDB, USERDB, PASSDB, {
     await sequelize.authenticate();
     console.log("Connected to Database.")
   } catch (err) {
-    throw new Error("" + err)
+    console.log(err + "");
+    //throw new Error("" + err)
   }
 })();
 
