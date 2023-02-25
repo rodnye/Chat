@@ -21,7 +21,7 @@ const Sequelize = require("sequelize");
 server.use("/", express.static(CLIENT));
 
 // database conection
-const sequelize = new Sequelize(URLDB + PORTDB, USERDB, PASSDB, {
+const sequelize = new Sequelize(URLDB +  ":" + PORTDB, USERDB, PASSDB, {
   dialect: 'mysql',
   dialectOptions: {
 
