@@ -15,5 +15,6 @@ module.exports = {
     PORTDB: "3306",
     DIR: __dirname,
     CLIENT: __dirname + "/client",
+    LOGIC: __dirname + "/server"
     LOGS: __dirname + "/logs",
 }
