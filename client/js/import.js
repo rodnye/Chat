@@ -8,12 +8,13 @@
  * @author Rodny Estrada
  * @class
  */
-function Import () {
+function Import (absolutePath) {
     let promise = new Promise(resolve => resolve("init"));
     let body = document.querySelector("body");
     let head = document.querySelector("head");
     
     // regexp
+    let regAbs = /^\//; // is absolute path
     let regJs = /\.js$/;
     let regCss = /\.css$/;
     let regHtml = /\.html$/;
@@ -28,8 +29,11 @@ function Import () {
         promise = promise.then(text => {
             return new Promise((resolve, reject) => {
                 const script = document.createElement("script");
+               
                 if (!regJs.test(url)) url += ".js";
-                console.log(url)
+                if (!regAbs.test(url)) url = absolutePath + "/" + url;
+                
+                console.log(url);
                 script.src = url;
                 script.type = "text/javascript";
                 script.addEventListener("error", () => console.error("Load Script Error: " + url));
@@ -52,7 +56,10 @@ function Import () {
         promise = promise.then(text => {
             return new Promise((resolve, reject) => {
                 const link = document.createElement("link");
+                
                 if (!regCss.test(url)) url += ".css";
+                if (!regAbs.test(url)) url = absolutePath + "/" + url;
+                
                 console.log(url);
                 link.rel = "stylesheet";
                 link.href = url;
@@ -74,8 +81,11 @@ function Import () {
      */
     this.html = function (url) {
         promise = promise.then(text => {
+            
             if (!regHtml.test(url)) url += ".html";
+            if (!regAbs.test(url)) url = absolutePath + "/" + url;
             console.log(url);
+            
             return new Promise((resolve, reject) => {
               fetch(url)
                 .then(response => response.text())
