@@ -24,6 +24,8 @@ const bodyParser = require("body-parser");
 app.use(cors());
 app.use(bodyParser())
 app.use(express.static(config.CLIENT)); //statics files
+app.use("/node_modules", express.static(config.DIR + "/node_modules"));
+
 module.exports = {
     io,
     app
