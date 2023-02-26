@@ -1,0 +1,14 @@
+/**
+ * Utils
+ */
+
+/* link element style */
+.link {
+    color: var(--primary);
+    text-decoration-line: underline;
+}
+.link:hover {color: #650094}
+.link:active {
+    color: #ff0000;
+    background: rgba(0, 0, 80, .2);
+}
