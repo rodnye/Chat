@@ -22,8 +22,10 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 app.use(cors());
-app.use(bodyParser())
-app.use(express.static(config.CLIENT)); //statics files
+app.use(bodyParser());
+
+app.get("/", (req, res) => res.sendFile(config.CLIENT + "/index.html"));
+app.use("/public", express.static(config.CLIENT)); //statics files
 app.use("/node_modules", express.static(config.DIR + "/node_modules"));
 
 module.exports = {
