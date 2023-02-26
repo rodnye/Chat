@@ -1,12 +1,16 @@
 /**
  * Main Script
  */
- 
+
+// layouts
+let authLayout;
+
+
 function main () {
     
-    // a test
-    alert("Working!");
+    // init layouts
+    authLayout = createAuthLayout();
+    authLayout.show();
     
+    console.log("All Loaded!");
 }
-
-document.addEventListener("DOMContentLoaded", main);
