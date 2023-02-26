@@ -1,0 +1,23 @@
+/**
+ * Layout Component
+ */
+ 
+.layout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    
+    background: var(--body-bg);
+}
+
+.layout.layout--visible {
+    display: flex;
+    flex-direction: column;
+    
+    z-index: 2;
+}
