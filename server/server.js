@@ -37,6 +37,7 @@ app.use("/", router);
 
 //Error route
 app.use((req, res) => {
+    res.status(404);
     res.json({
         status: false, message: "ERROR 404"
     });
