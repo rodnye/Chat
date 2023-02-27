@@ -8,6 +8,7 @@ new Import("/public")
     .js("/node_modules/eruda/eruda.js").then(() => eruda.init())
     .css("/node_modules/bootstrap/dist/css/bootstrap-utilities.min.css")
     .js("js/animate.js")
+    .js("js/storage.js")
     
     
     // UI components
@@ -20,8 +21,9 @@ new Import("/public")
     
     // layouts
     .link("layouts/auth/auth", "html,css,js")
-    .js("layouts/auth/login.js")
-    .js("layouts/auth/signup.js")
+    .js("layouts/auth/__login.js")
+    .js("layouts/auth/__signup.js")
+    .link("layouts/loading__modal/loading", "html,css,js")
     
     
     // main files
