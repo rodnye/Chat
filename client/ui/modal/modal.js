@@ -33,6 +33,7 @@ class ModalComponent {
             draw: showAnimation.draw
         });
         
+        
         showAnimation.on("play", () => modal.classList.add("modal--visible"));
         hideAnimation.on("end", () => modal.classList.remove("modal--visible"));
         
