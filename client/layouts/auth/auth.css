@@ -1,9 +1,11 @@
 
-#login-modal .modal_body > div {
+#login-modal .modal_body > div,
+#signup-modal .modal_body > div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: .25rem;
     
     width: 100%;
 }
