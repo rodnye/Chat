@@ -4,7 +4,8 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "test": "TEST=true node main.js"
+    "test": "TEST=true node main.js",
+    "lint": "eslint ./client"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
     "mysql2": "^3.1.2",
     "sequelize": "^6.28.0",
     "eruda": "^2.10.0",
-    "bootstrap": "^5.2.3"
+    "bootstrap": "^5.2.3",
+    "@fortawesome/fontawesome-free": "^6.3.0"
   }
 }

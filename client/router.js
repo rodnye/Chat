@@ -6,7 +6,9 @@ new Import("/public")
     
     // libraries
     .js("/node_modules/eruda/eruda.js").then(() => eruda.init())
+    
     .css("/node_modules/bootstrap/dist/css/bootstrap-utilities.min.css")
+    .css("/node_modules/@fortawesome/fontawesome-free/css/all.min.css")
     .js("js/animate.js")
     .js("js/storage.js")
     
