@@ -12,7 +12,7 @@ const UserModel = (DataTypes) => {
         },
         nickname: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: false
         },
         password: {
             type: DataTypes.STRING,
@@ -24,7 +24,7 @@ const UserModel = (DataTypes) => {
         },
         acclevel: {
             type: DataTypes.INTEGER,
-            defaultValue: 3
+            defaultValue: 1 //0 - banned , 1 - regular , 2 - mod , 3 - admin
         }
     }
 }
