@@ -58,7 +58,7 @@ function Animate (cfg) {
         // eraseIn
         default: this.timing = timing;
         }
-    };
+    }
 
 
     // RENDER FRAME (DRAW)

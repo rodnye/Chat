@@ -4,7 +4,7 @@
 
 button {
     color: #fff;
-    background: var(--primary);
+    background: var(--primary-bg);
   
     display: inline-block;
     padding: .375rem .75rem;

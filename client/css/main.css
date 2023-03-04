@@ -5,7 +5,9 @@
 :root {
     
     /** app theme **/
-    --primary: #0d6efd;
+    --primary-bg: var(--bs-primary);
+    --primary: var(--primary-bg);
+    --primary-color: var(--bs-light);
     --secondary: #6c757d;
     
     --border-color: #dee2e6;

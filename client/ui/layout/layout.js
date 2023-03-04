@@ -10,7 +10,7 @@ let layoutVisible = null;
  * @constructor
  * @param {string} css selector of element
  */
-class ViewComponent {
+class LayoutComponent {
     
     constructor (selector) {
         const el = document.querySelector(selector);
