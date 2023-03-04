@@ -1,0 +1,54 @@
+/**
+ * Navbar Component
+ */
+
+.navbar {
+    width: 100%;
+    padding: 1rem 0;
+    color: var(--primary-color);
+    background: var(--primary-bg);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 2;
+
+    box-shadow: var(--navbar-shadow);
+}
+
+.navbar > .navbar_left {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+.navbar > .navbar_center {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 30px;
+}
+.navbar > .navbar_right {
+    display: flex;
+    padding-right: 10px;
+}
+
+.navbar_right > i,
+.navbar_left  > i {
+    display: flex;
+    border-radius: 100px;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    -webkit-transition: background .4s;
+    background: rgba(0,0,0,0);
+}
+
+.navbar_right > i:active,
+.navbar_left > i:active {
+    -webkit-transition: background .4s;
+    background: var(--app-primary-lightcolor);
+}
