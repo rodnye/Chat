@@ -7,7 +7,7 @@ let signupModal;
 
 
 function createAuthLayout () {
-    const layout = new ViewComponent("#auth-layout");
+    const layout = new LayoutComponent("#auth-layout");
     
     //
     // LogIn Modal

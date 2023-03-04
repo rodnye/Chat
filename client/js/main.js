@@ -1,10 +1,20 @@
 /**
  * Main Script
  */
+ 
+// config
+const APP_NAME = "Chat";
+const SOCKET_URL = "/"; // @FIXME
+const USER = stg.getData("user", {
+    name:  null,
+    pass:  null,
+    token: null,
+});
 
 // layouts
 let loading;
 let authLayout;
+let mainLayout;
 
 
 function main () {
@@ -14,6 +24,9 @@ function main () {
 
     // init layouts
     authLayout = createAuthLayout();
+    mainLayout = createMainLayout();
+    
+    //authLayout.show();
     authLayout.show();
     
     console.log("All Loaded!");
