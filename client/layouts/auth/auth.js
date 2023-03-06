@@ -16,6 +16,11 @@ function createAuthLayout () {
     loginModal.E(".modal__body .link").addEventListener("click", toggleAuthModals);
     loginModal.E(".modal__footer .btn").addEventListener("click", sendLoginData);
     loginModal.show();
+    
+    if (USER.name) {
+        loginModal.E("input[name='name']").value = USER.name;
+        loginModal.E("input[name='pass']").value = USER.pass;
+    }
    
     //
     // SignUp Modal
