@@ -1,0 +1,63 @@
+/**
+ * List View Component
+ */
+
+.list-view {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    flex-grow: 1;
+    list-style: none;
+    overflow-y: auto;
+}
+
+.list-view__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    transition: background .4s;
+    background: var(--body-bg);
+}
+.list-view__item:active {
+    transition: background .4s;
+    background: var(--accent-lightcolor);
+}
+
+/* icon */
+.list-view__item > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary-bg);
+    color: var(--primary-color);
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    max-height: 50px;
+    margin: 6px 12px;
+    border-radius: 100px;
+}
+
+/* text container */
+.list-view__item > div {
+    flex-grow: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+
+    padding-right: 5px;
+    color: var(--app-accent-font-color);
+}
+
+/* complements */
+.text-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

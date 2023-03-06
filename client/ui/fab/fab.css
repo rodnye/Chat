@@ -1,5 +1,5 @@
-/*
- * FAB
+/**
+ * Floating Action Button UI Component
  */
  
 .fab {
@@ -17,10 +17,11 @@
   right: 1rem;
   z-index: 2;
   
-  -webkit-transition: background .4s;
+  transition: background .4s;
   background: var(--primary-bg);
 }
+
 .fab:active {
-  -webkit-transition: background .4s;
+  transition: background .4s;
   background: var(--app-primary-lightcolor);
 }

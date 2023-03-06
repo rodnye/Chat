@@ -1,5 +1,5 @@
 /**
- * Navbar Component
+ * Navigation Bar UI Component
  */
 
 .navbar {
@@ -18,25 +18,26 @@
     box-shadow: var(--navbar-shadow);
 }
 
-.navbar > .navbar_left {
+.navbar > .navbar__left {
     display: flex;
     align-items: center;
     padding-left: 20px;
 }
-.navbar > .navbar_center {
+.navbar > .navbar__center {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 30px;
 }
-.navbar > .navbar_right {
+.navbar > .navbar__right {
     display: flex;
     padding-right: 10px;
 }
 
-.navbar_right > i,
-.navbar_left  > i {
+/* navbar icons */
+.navbar__right > i,
+.navbar__left  > i {
     display: flex;
     border-radius: 100px;
     width: 30px;
@@ -47,8 +48,8 @@
     background: rgba(0,0,0,0);
 }
 
-.navbar_right > i:active,
-.navbar_left > i:active {
+.navbar__right > i:active,
+.navbar__left > i:active {
     -webkit-transition: background .4s;
     background: var(--app-primary-lightcolor);
 }

@@ -1,13 +1,13 @@
-/*
- * Modal Component
+/**
+ * Modal UI Component
  */
 
 /**
  * Create a new modal
  *
  * @constructor
- * @param {String} selector - css selector of element
- * @param {Object} options
+ * @param {string} selector - css selector of element
+ * @param {object} options
  */
 class ModalComponent {
     
@@ -48,7 +48,8 @@ class ModalComponent {
     
     /**
      * querySelector method
-     * @param {String} css selector of element
+     *
+     * @param {string} css selector of element
      * @return {HTMLElement} result of search
      */
     E (selector) {

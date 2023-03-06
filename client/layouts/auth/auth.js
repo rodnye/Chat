@@ -13,16 +13,16 @@ function createAuthLayout () {
     // LogIn Modal
     //
     loginModal = new ModalComponent("#login-modal");
-    loginModal.E("span.link").addEventListener("click", toggleAuthModals);
-    loginModal.E("button.submit").addEventListener("click", sendLoginData);
+    loginModal.E(".modal__body .link").addEventListener("click", toggleAuthModals);
+    loginModal.E(".modal__footer .btn").addEventListener("click", sendLoginData);
     loginModal.show();
    
     //
     // SignUp Modal
     //
     signupModal = new ModalComponent("#signup-modal");
-    signupModal.E("span.link").addEventListener("click", toggleAuthModals);
-    signupModal.E("button.submit").addEventListener("click", sendSignupData);
+    signupModal.E(".modal__body .link").addEventListener("click", toggleAuthModals);
+    signupModal.E(".modal__footer .btn").addEventListener("click", sendSignupData);
     
     
     return layout;

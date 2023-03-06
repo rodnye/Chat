@@ -2,7 +2,7 @@
  * Button Component
  */
 
-button {
+.btn {
     color: #fff;
     background: var(--primary-bg);
   
@@ -25,7 +25,7 @@ button {
         box-shadow .15s ease-in-out;
 }
 
-button:hover {
+.btn:hover {
     border-color: var(--border-color);
     box-shadow: var(--box-shadow-focus);
     z-index: 1;
