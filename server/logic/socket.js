@@ -4,6 +4,7 @@ const auth = require(config.LOGIC + "/auth/authenticator.js");
 const {
     User
 } = require(config.LOGIC + "/database/dbh.js");
+const client = require("./client/client.js");
 
 io.of("/client").on("connection", async (socket) => {
     if (!socket.handshake.query) {

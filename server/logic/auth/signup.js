@@ -3,7 +3,7 @@ const uid = require(config.LOGIC + "/helpers/uid.js");
 const bcrypt = require("bcryptjs");
 //const sendToken = require("./sendToken.js");
 const {
-    User
+    User, Room
 } = require(config.LOGIC + "/database/dbh.js");
 
 /*  Funtion  signup
@@ -102,7 +102,7 @@ const signup = async (req, res) => {
 
     try {
 
-        await User.create({
+        const _u = await User.create({
             user_id: parseInt(uid.num(8)),
             username: username,
             /*color: "#000000".replace(/0/g, function() { return (~~((Math.random() * 10) + 6)).toString(16); }),*/
@@ -112,9 +112,25 @@ const signup = async (req, res) => {
         });
         //sendToken(email);
 
+        if (_u) {
+            let gchat = await Room.findOne({
+                where: {
+                    chat_id: 0
+                }
+            });
+            if(gchat){
+                const gcd = gchat.getData();
+                gcd.members.push(_u.user_id);
+                gchat.setData({members: gcd.members});
+            }
+            return res.json({
+                status: true,
+                data: "REGISTERED"
+            });
+        }
         return res.json({
-            status: true,
-            data: "REGISTERED"
+            status: false,
+            data: "error"
         });
 
     } catch (err) {
