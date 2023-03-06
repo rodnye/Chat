@@ -33,8 +33,7 @@ const sequelize = new Sequelize(config.USERDB, config.USERDB, config.PASSDB, {
 **********************/
 class User extends Model {
     getData(_rows) {
-        if (!_rows) return this;
-        const rows = (typeof(_rows) != "object" ? [_rows]: _rows);
+        const rows = (typeof(_rows) != "object" ? ( !_rows ? Object.keys(this.dataValues) : [_rows]): _rows);
         let ret = {};
         for (let row of rows) {
             if (this[row]) {
