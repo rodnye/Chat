@@ -24,6 +24,7 @@ new Import("/public")
     // UI components
     .link("ui/layout/layout", "css,js")
     .link("ui/modal/modal", "css,js")
+    .link("ui/list-view/list-view", "css,js").js("ui/list-view/list-view__item.js")
     .link("ui/button/button", "css")
     .link("ui/navbar/navbar", "css")
     .link("ui/fab/fab", "css")

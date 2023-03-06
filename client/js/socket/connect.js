@@ -8,15 +8,15 @@ let socket;
 function connectToSocket () {
     
     // connect
-    socket = io.connect(SOCKET_URL, {
-        query: "token=" + USER.token, // @FIXME
+    socket = io.connect("/client", {
+        query: "token=" + USER.token,
         cors: { origin: null }
     });
     
     
     // connection success!
     socket.on("connect", data => {
-        console.log("WB connected!");
+        console.log("WB connected!", data);
         loading.show("Cargando Chats...");
     });
     

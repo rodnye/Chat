@@ -4,7 +4,6 @@
  
 // config
 const APP_NAME = "Chat";
-const SOCKET_URL = "/"; // @FIXME
 const USER = stg.getData("user", {
     name:  null,
     pass:  null,
@@ -26,8 +25,8 @@ function main () {
     authLayout = createAuthLayout();
     mainLayout = createMainLayout();
     
-    //authLayout.show();
     authLayout.show();
+    //mainLayout.show();
     
     console.log("All Loaded!");
 }

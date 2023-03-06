@@ -33,7 +33,7 @@ function Import (absolutePath) {
                 if (!regJs.test(url)) url += ".js";
                 if (!regAbs.test(url)) url = absolutePath + "/" + url;
                 
-                console.log(url);
+                //console.log(url);
                 script.src = url;
                 script.type = "text/javascript";
                 script.addEventListener("error", () => console.error("Load Script Error: " + url));
@@ -60,7 +60,7 @@ function Import (absolutePath) {
                 if (!regCss.test(url)) url += ".css";
                 if (!regAbs.test(url)) url = absolutePath + "/" + url;
                 
-                console.log(url);
+                //console.log(url);
                 link.rel = "stylesheet";
                 link.href = url;
                 link.addEventListener("error", () => console.error("Load Style Error: " + url));
@@ -84,7 +84,7 @@ function Import (absolutePath) {
             
             if (!regHtml.test(url)) url += ".html";
             if (!regAbs.test(url)) url = absolutePath + "/" + url;
-            console.log(url);
+            //console.log(url);
             
             return new Promise((resolve, reject) => {
               fetch(url)
