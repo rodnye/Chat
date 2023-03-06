@@ -105,8 +105,8 @@ const signup = async (req, res) => {
         await User.create({
             user_id: parseInt(uid.num(8)),
             username: username,
-            /*color: "#000000".replace(/0/g, function() { return (~~((Math.random() * 10) + 6)).toString(16); }),
-             nickname: "xuser_" + uid.alphanum(6),*/
+            /*color: "#000000".replace(/0/g, function() { return (~~((Math.random() * 10) + 6)).toString(16); }),*/
+            nickname: "xuser" + uid.num(6),
             email: email,
             password: bcrypt.hashSync(password, 10)
         });

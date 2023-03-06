@@ -7,7 +7,6 @@ const UserModel = (DataTypes) => {
         },
         username: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: false
         },
         nickname: {

@@ -62,6 +62,6 @@ const login = async (req, res) => {
         status: true,
         data: authenticator.generate(account.user_id)
     });
-}
+};
 
 module.exports = login;
