@@ -42,4 +42,11 @@ class LayoutComponent {
         this.visible = false;
         this.classList.remove("layout--visible");
     }
+    
+    /**
+     * query selector method
+     */
+    E (selector) {
+        return this.element.querySelector(selector);
+    }
 }
