@@ -2,8 +2,7 @@
  * Connection with Socket.io
  */
 
-// client-socket manager
-let socket;
+let socket; // client-socket manager
 
 function connectToSocket () {
     
@@ -17,8 +16,12 @@ function connectToSocket () {
     // connection success!
     socket.on("connect", data => {
         console.log("WB connected!", data);
-        loading.show("Cargando Chats...");
+        loading.show("Cargando Contactos...");
     });
+    
+    socket.on("load-user", socketLoadUser);
+    socket.on("get-room-data", socketRoomData);
+    socket.on("get-room-mess", socketRoomMess);
     
     // inform on any event launched
     socket.onAny((event, data) => console.log("WS " + event + ":", data));
