@@ -19,9 +19,13 @@ new Import("/public")
     .css("css/main.css")
     
     .js("js/socket/connect.js")
+    .js("js/socket/__load-user.js")
+    .js("js/socket/__room-data.js")
+    .js("js/socket/__room-mess.js")
     
     
     // UI components
+    .link("ui/msg-view/msg-view", "css,js")
     .link("ui/layout/layout", "css,js")
     .link("ui/modal/modal", "css,js")
     .link("ui/list-view/list-view", "css,js").js("ui/list-view/list-view__item.js")
@@ -37,6 +41,8 @@ new Import("/public")
     .js("layouts/auth/__login.js")
     .js("layouts/auth/__signup.js")
     .link("layouts/main/main", "html,css,js")
+    .link("layouts/chat/chat", "html,css,js")
+    .link("layouts/contacts/contacts", "html,css,js")
     .link("layouts/loading_modal/loading", "html,css,js")
     
     
