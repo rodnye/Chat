@@ -11,11 +11,9 @@
 
     background: var(--body-bg);
     color: var(--body-color);
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    max-height: 40px;
-    margin: 6px 12px;
+    width: 3rem;
+    height: 3rem;
+    
     border-radius: 100px;
 }
 
@@ -53,25 +51,27 @@
     flex-direction: row;
     justify-content: stretch;
     align-items: flex-end;
-    color: var(--primary-color);
-
+    
     width: 100%;
+    padding: .5em .2em;
+    color: var(--primary-color);
+}
+.chatbar .fa {
+    font-size: 1.3em;
 }
 
 .chatbar__left {
-    flex-grow: 1;
-    border-radius: 20px;
-    min-height: 30px;
-    background: var(--primary-bg);
-
-    margin: 5px;
-    margin-right: .5px;
     display: flex;
     align-items: flex-end;
+    flex-grow: 1;
+    
+    border-radius: 20px;
+    min-height: 3em;
+    margin-right: .3em;
+    background: var(--primary-bg);
 }
-.chatbar__left > i {
-    margin: 10px;
-    font-size: 1.5em;
+.chatbar__left > .fa {
+    margin: .6em;
 }
 
 
@@ -81,7 +81,7 @@
     align-self: center;
 
     max-height: 5rem;
-    margin: 5px 0;
+    margin: .6em 0;
     overflow: scroll;
     word-break: break-word;
     outline: none;
@@ -98,11 +98,9 @@
     justify-content: center;
     align-items: center;
 
-    margin: 5px;
-    margin-left: 1px;
-    width: 45px;
-    min-width: 45px;
-    min-height: 45px;
+    width: 3em;
+    height: 3em;
+    flex-shrink: 0;
 
     border-radius: 100px;
     background: var(--primary-bg);
