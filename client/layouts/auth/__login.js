@@ -16,8 +16,6 @@ function sendLoginData () {
     
     .then(res => res.json())
     .then(({status, data}) => {
-        loading.hide();
-        alert(data);
         
         if (status) {
             // logIn success!!
@@ -32,6 +30,11 @@ function sendLoginData () {
             connectToSocket(); // connect to server socket
             loginModal.hide(); // hide login
             mainLayout.show(); // redirect to main app
+        }
+        
+        else {
+            alert(data);
+            loading.hide();
         }
     });
     
