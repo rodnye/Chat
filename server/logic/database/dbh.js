@@ -138,15 +138,15 @@ Room.init(
 
     if (! (await Room.findOne({
         where: {
-            chat_id: 000000
+            chat_id: 0
         }}))) {
         const gchat = await Room.create({
-            chat_id: 000000,
+            chat_id: 0,
             type: "group",
             link: "global1",
             name: "Global",
             desc: "Chat global.",
-            owner: "000000"
+            owner: "system"
         });
     }
 })();

@@ -105,7 +105,7 @@ const signup = async (req, res) => {
         const _u = await User.create({
             user_id: parseInt(uid.num(8)),
             username: username,
-            /*color: "#000000".replace(/0/g, function() { return (~~((Math.random() * 10) + 6)).toString(16); }),*/
+            color: "#000000".replace(/0/g, function() { return (~~((Math.random() * 10) + 6)).toString(16); }),
             nickname: "xuser" + uid.num(6),
             email: email,
             password: bcrypt.hashSync(password, 10)
@@ -122,6 +122,7 @@ const signup = async (req, res) => {
                 const gcd = gchat.getData();
                 gcd.members.push(_u.user_id);
                 gchat.setData({members: gcd.members});
+                console.log(gcd.members);
             }
             return res.json({
                 status: true,

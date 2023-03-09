@@ -63,7 +63,9 @@ const chat = async (io, socket, id) => {
 
     socket.on("get-room-mess",
         async (data) => {
-            if (!data || data.constructor != "Array") return;
+            
+            if (!data || !Array.isArray(data)) return;
+            console.log("aqui" , data.constructor);
             let messages = [];
             for (let _m of data) {
                 if (!_m.chat_id || !_m.date) continue;
