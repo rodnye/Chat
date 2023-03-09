@@ -1,0 +1,13 @@
+
+#contacts-layout > .list-view:empty:before {
+    content: "Sin contactos ^_^";
+    
+    align-self: center;
+    padding: .25rem;
+    margin-top: .25rem;
+    width: auto;
+    
+    background: var(--primary-bg);
+    color: var(--primary-color);
+    border-radius: 100px;
+}
