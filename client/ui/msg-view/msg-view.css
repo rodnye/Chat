@@ -1,26 +1,24 @@
-
 .msg-view {
-  max-width: 96%;  
-  min-width: 96%;
-  max-height: 100%; 
-  min-height: 100%;
-  padding: 0 2%;
-  
-  display: flex;
-  flex-direction: column;
-  flex-flow: column;
-  overflow-y: auto;
+    width: 96%;
+    height: 100%;
+    padding: 0 2%;
+    align-self: center;
+
+    display: flex;
+    flex-direction: column;
+    flex-flow: column;
+    overflow-y: auto;
 }
 
 .msg-view:empty:before {
-  content: "Chat vacío";
-  align-self: center;
-  margin-top: 5px;
-  padding: 3px 5px;
-  
-  border-radius: 30px;
-  background: var(--primary-bg);
-  color: var(--primary-color);
+    content: "Chat vacío";
+    align-self: center;
+    margin-top: 5px;
+    padding: 3px 5px;
+
+    border-radius: 30px;
+    background: var(--primary-bg);
+    color: var(--primary-color);
 }
 
 
@@ -30,20 +28,35 @@
 \******************/
 
 .msg {
-  display: flex;
-  flex-direction: column;
-}
-.msg__text {
-  background: var(--primary-bg);
-  word-break: break-word;
-  
-  padding: 6px 13px;
-  margin: 6px 0;
-  max-width: 75%;
-  min-width: 28%;
-  min-height: 1.5rem;
-  
-  display: flex;
-  align-items: center;
+    background: var(--primary-bg);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    
+    padding: 6px 13px;
+    margin: 6px 0;
+    max-width: 75%;
+    min-width: 28%;
+    min-height: 1.5rem;
+
 }
 
+.msg__sender {
+    font-weight: bold;
+    font-style: italic;
+    font-size: .8em;
+    align-self: stretch;
+}
+.msg__text {
+    word-break: break-word;
+}
+
+.msg--user {
+    border-radius: 1em 0 1em 1em;
+    align-self: flex-end;
+}
+
+.msg--contact {
+    border-radius: 0 1em 1em 1em;
+    align-self: flex-start;
+}

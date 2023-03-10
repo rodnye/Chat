@@ -19,6 +19,7 @@ function connectToSocket () {
         loading.show("Cargando Contactos...");
     });
     
+    socket.on("message", socketMessage);
     socket.on("load-user", socketLoadUser);
     socket.on("get-room-data", socketRoomData);
     socket.on("get-room-mess", socketRoomMess);

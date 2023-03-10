@@ -16,9 +16,11 @@ new Import("/public")
     
     // main files
     .js("js/main.js")
+    .js("js/utils.js")
     .css("css/main.css")
     
     .js("js/socket/connect.js")
+    .js("js/socket/__message.js")
     .js("js/socket/__load-user.js")
     .js("js/socket/__room-data.js")
     .js("js/socket/__room-mess.js")

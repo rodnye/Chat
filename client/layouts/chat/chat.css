@@ -2,6 +2,10 @@
  * Chat Layout
  */
 
+#chat-layout {
+    display: flex;
+    flex-direction: column;
+}
 
 /* picture tool-bar */
 #chat-layout .contact-picture {
@@ -39,6 +43,7 @@
 
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 
@@ -86,6 +91,7 @@
     word-break: break-word;
     outline: none;
 }
+
 .chatbar__input:empty:before {
     content: "Escribe un mensaje...";
     color: var(--primary-color);

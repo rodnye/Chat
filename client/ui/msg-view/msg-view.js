@@ -5,13 +5,18 @@
 
 class MessageViewComponent {
     
-    constructor (username, type) {
+    constructor (username, roomType) {
         const view = document.createElement("div");
         view.classList.add("msg-view");
+        
+        if (roomType === "group") {
+            view.classList.add("msg-view--group");
+        }
         
         this.view = view;
         this.msgList = [];
         this.username = username;
+        this.roomType = roomType;
         
         this.hide();
     }
@@ -26,6 +31,26 @@ class MessageViewComponent {
         const msgBubble = document.createElement("div");
         
         msgBubble.classList.add("msg");
+        
+        
+        if (this.roomType == "group") {
+            // is a chat group!
+            // add sender name of sms
+            const msgSender = document.createElement("div");
+            msgSender.classList.add("msg__sender");
+            msgSender.innerText = sender;
+            msgBubble.appendChild(msgSender);
+        }
+        
+        
+        if (sender === USER.name) {
+            // sender is the user!
+            msgBubble.classList.add("msg--user");
+        }
+        else {
+            msgBubble.classList.add("msg--contact");
+        }
+        
         
         //
         // add message content

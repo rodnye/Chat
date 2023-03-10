@@ -12,7 +12,7 @@ function socketLoadUser (data) {
     
     // save user contacts 
     data.contacts.forEach(contact => {
-        CONTACTS[contact.username] = contact;
+        CONTACTS[contact.user_id] = contact;
     });
     stg.setData("contacts", CONTACTS);
     updateContactsList();

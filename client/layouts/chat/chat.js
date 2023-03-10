@@ -24,7 +24,33 @@ function createChatLayout () {
         mainLayout.show();
         
         // save temporary message not finished
-        msgViewVisible.draftHTML = chatInput.innerHTML;
+        msgViewVisible.draft = chatInput.innerText;
+    });
+    
+    
+    /**
+     * Event: submit btn
+     */
+    layout.E(".chatbar__submit").addEventListener("click", () => {
+        const content = chatInput.innerText.trim();
+        if (!content) return;
+        
+        msgViewVisible.addMessage({
+            sender: USER.name,
+            type: "text",
+            content,
+        });
+        
+        // send message
+        socket.emit("message", {
+            arriv_id: randomInt(1000, 9999),
+            chat_id: msgViewVisible.roomId,
+            type: "text",
+            message: content,
+        });
+        
+        chatInput.innerText = "";
+        chatInput.focus();
     });
     
     
@@ -33,26 +59,14 @@ function createChatLayout () {
      * Event: chatsListView items
      */
     chatsListView.addListener("click", item => {
-        const roomId = item.title;
+        const roomId = item.roomId;
+        const roomName = item.title;
         let room = ROOMS[roomId];
         let msgView = msgViews[roomId];
         
-        if (!msgView) {
-            // initialize this chat UI
-            msgView = new MessageViewComponent(roomId, item.type);
-            msgViews[roomId] = msgView;
-            
-            msgViewsContainer.appendChild(msgView.view);
-        }
-        if (!room) {
-            // initialize new room
-            room = {msgList:[]};
-            ROOMS[item.title] = room;
-        }
-        
-        contactNameEl.innerText = roomId;
+        contactNameEl.innerText = roomName;
         contactStateEl.innerText = "En linea";
-        chatInput.innerHTML = msgView.draftHTML || "";
+        chatInput.innerText = msgView.draft || "";
         
         if (msgViewVisible) msgViewVisible.hide();
         msgView.show();
