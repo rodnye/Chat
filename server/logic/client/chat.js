@@ -65,7 +65,7 @@ const chat = async (io, socket, id) => {
         async (data) => {
             
             if (!data || !Array.isArray(data)) return;
-            console.log("aqui" , data.constructor);
+            
             let messages = [];
             for (let _m of data) {
                 if (!_m.chat_id || !_m.date) continue;

@@ -36,11 +36,11 @@ class User extends Model {
         const rows = (typeof(_rows) != "object" ? ( !_rows ? Object.keys(this.dataValues) : [_rows]): _rows);
         let ret = {};
         for (let row of rows) {
-            if (this[row]) {
+            if (this.dataValues[row]) {
                 try {
-                    ret[row] = JSON.parse(this[row]);
+                    ret[row] = JSON.parse(this.dataValues[row]);
                 } catch (err) {
-                    ret[row] = this[row];
+                    ret[row] = this.dataValues[row];
                 }
             }
         }
@@ -50,7 +50,7 @@ class User extends Model {
     async setData(obj) {
         let parsedObj = {};
         for (let o in obj) {
-            if (this[o] == undefined) continue;
+            if (this.dataValues[o] == undefined) continue;
             parsedObj[o] = (typeof(obj[o]) === "object" ? JSON.stringify(obj[o]): obj[o]);
         }
         try {
@@ -98,11 +98,11 @@ class Room extends Model {
 
         let ret = {};
         for (let row of rows) {
-            if (this[row]) {
+            if (this.dataValues[row] != undefined) {
                 try {
-                    ret[row] = JSON.parse(this[row]);
+                    ret[row] = JSON.parse(this.dataValues[row]);
                 } catch (err) {
-                    ret[row] = this[row];
+                    ret[row] = this.dataValues[row];
                 }
             }
         }
@@ -112,7 +112,7 @@ class Room extends Model {
     async setData(obj) {
         let parsedObj = {};
         for (let o in obj) {
-            if (this[o] == undefined) continue;
+            if (this.dataValues[o] == undefined) continue;
             parsedObj[o] = (typeof(obj) === "object" ? JSON.stringify(obj[o]): obj[o]);
         }
         try {
@@ -177,11 +177,11 @@ class Message extends Model {
             "date"];
         let ret = {};
         for (let row of rows) {
-            if (this[row]) {
+            if (this.dataValues[row]) {
                 try {
-                    ret[row] = JSON.parse(this[row]);
+                    ret[row] = JSON.parse(this.dataValues[row]);
                 } catch (err) {
-                    ret[row] = this[row];
+                    ret[row] = this.dataValues[row];
                 }
             }
         }
@@ -191,7 +191,7 @@ class Message extends Model {
     async setData(obj) {
         let parsedObj = {};
         for (let o in obj) {
-            if (this[o] == undefined) continue;
+            if (this.dataValues[o] == undefined) continue;
             parsedObj[o] = (typeof(obj) == "object" ? JSON.stringify(obj[o]): obj[o]);
         }
         try {
