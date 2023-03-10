@@ -13,7 +13,7 @@ const MessageModel = require("./models/message.js");
 /***********************
 * Starting Connection *
 ***********************/
-const sequelize = new Sequelize(config.USERDB, config.USERDB, config.PASSDB, {
+const sequelize = new Sequelize(config.DB, config.USERDB, config.PASSDB, {
     dialect: 'mysql',
     host: config.URLDB,
     dialectOptions: {}
@@ -146,7 +146,7 @@ Room.init(
             link: "global1",
             name: "Global",
             desc: "Chat global.",
-            owner: "system"
+            owner: 0
         });
     }
 })();

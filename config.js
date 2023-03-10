@@ -3,15 +3,16 @@
 //
 const PORT = process.env.PORT || 3000;
 const URL = "http://localhost:" + PORT;
-const URLDB = "sql9.freemysqlhosting.net";
+const URLDB = "sql10.freemysqlhosting.net";
 
 module.exports = {
     TEST_MODE: process.env.TEST === "true",
     PORT,
     URL,
     URLDB,
-    USERDB: "sql9600823",
-    PASSDB: "HFjvGfYAPb",
+    DB: "sql10604642",
+    USERDB: "sql10604642",
+    PASSDB: "iumY3s8nHJ",
     PORTDB: "3306",
     DIR: __dirname,
     CLIENT: __dirname + "/client",
