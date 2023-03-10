@@ -45,6 +45,7 @@ function createChatLayout () {
         socket.emit("message", {
             arriv_id: randomInt(1000, 9999),
             chat_id: msgViewVisible.roomId,
+            user_nick: USER.nick,
             type: "text",
             message: content,
         });
