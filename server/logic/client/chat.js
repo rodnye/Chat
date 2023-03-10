@@ -90,7 +90,7 @@ const chat = async (io, socket, id) => {
 
     socket.on("message",
         async (data) => {
-            if (!data.arriv_id || !data.chat_id || !data.type || !data.message) return;
+            if (!data.arriv_id || data.chat_id == undefined || !data.type || !data.message) return;
             const mess_id = uid.num(8);
             const room = await Room.findOne({
                 where: {
