@@ -2,20 +2,13 @@
  * Loading Modal styles
  */
 
-#loading-modal > .modal_dialog {
-    --shadow: 0 0 1rem .2rem var(--body-bg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-    background: transparent;
-    border: 0;
+#loading-modal > .modal__dialog {
+    padding: .5rem;
 }
 
 #loading-modal .loading-text {
-    color: #fff;
-    text-shadow: var(--shadow);
+    font-weight: bold;
+    color: gray;
     font-size: 1.2em;
 }
 
@@ -38,7 +31,6 @@
     position: absolute;
     top: 0;
     
-    box-shadow: var(--shadow);
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
