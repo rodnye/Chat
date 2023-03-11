@@ -177,7 +177,7 @@ class Message extends Model {
             "date"];
         let ret = {};
         for (let row of rows) {
-            if (this.dataValues[row]) {
+            if (this.dataValues[row] != undefined) {
                 try {
                     ret[row] = JSON.parse(this.dataValues[row]);
                 } catch (err) {
