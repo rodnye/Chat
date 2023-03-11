@@ -1,23 +1,26 @@
 {
-    "name": "webchat",
-    "version": "1.0.0",
-    "main": "main.js",
-    "scripts": {
-        "start": "node main.js",
-        "test": "TEST=true node main.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/RodnyE/Chat.git"
-    },
-    "dependencies": {
-        "body-parser": "^1.20.1",
-        "cors": "^2.8.5",
-        "express": "^4.18.2",
-        "jsonwebtoken": "^8.5.1",
-        "socket.io": "^4.6.1",
-        "bcryptjs": "^2.4.3",
-        "mysql2": "^3.1.2",
-        "sequelize": "^6.29.0"
-    }
+  "name": "webchat",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "TEST=true node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RodnyE/Chat.git"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "socket.io": "^4.5.4",
+    "bcryptjs": "^2.4.3",
+    "mysql2": "^3.1.2",
+    "sequelize": "^6.28.0",
+    "eruda": "^2.10.0",
+    "bootstrap": "^5.2.3",
+    "@fortawesome/fontawesome-free": "^6.3.0"
+  }
 }
