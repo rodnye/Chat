@@ -54,11 +54,11 @@ const chat = async (io, socket, id) => {
                     delete rm.link;
                     delete rm.banList;
                 }
-                __r.push(rm)
-                socket.join(r);
+                __r.push(rm);
+                socket.join("" + r);
             }
         }
-        socket.emit("get-room-data", __r)
+        socket.emit("get-room-data", __r);
     });
 
     socket.on("get-room-mess",
@@ -113,7 +113,9 @@ const chat = async (io, socket, id) => {
                         date: new Date().getTime()
                     });
                     if (mess) {
-                        await socket.to("" + data.chat_id).emit("message", mess.getData());
+                        await socket.broadcast.in("" + data.chat_id).emit("message", mess.getData());
+                      /*  console.log(io)
+                        io.of("/client").emit("message", mess.getData());*/
            
                         for (let bot of room.bots) {
                             if (io.sockets[bot]) io.sockets[bot].emit("message", mess);
