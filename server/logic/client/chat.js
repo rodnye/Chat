@@ -113,7 +113,7 @@ const chat = async (io, socket, id) => {
                         date: new Date().getTime()
                     });
                     if (mess) {
-                        await socket.to(data.chat_id).emit("message", mess.getData());
+                        await socket.to("" + data.chat_id).emit("message", mess.getData());
            
                         for (let bot of room.bots) {
                             if (io.sockets[bot]) io.sockets[bot].emit("message", mess);

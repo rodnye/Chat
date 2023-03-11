@@ -35,7 +35,7 @@ const UserModel = (DataTypes) => {
         },
         rooms: {
             type: DataTypes.STRING,
-            defaultValue: "[\"000000\"]"
+            defaultValue: "[0]"
         },
         bots: {
             type: DataTypes.STRING,

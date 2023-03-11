@@ -122,7 +122,6 @@ const signup = async (req, res) => {
                 const gcd = gchat.getData();
                 gcd.members.push(_u.user_id);
                 gchat.setData({members: gcd.members});
-                console.log(gcd.members);
             }
             return res.json({
                 status: true,
