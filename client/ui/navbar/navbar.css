@@ -12,6 +12,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
 
     z-index: 2;
 
