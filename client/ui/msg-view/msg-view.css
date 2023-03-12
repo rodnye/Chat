@@ -22,6 +22,11 @@
 }
 
 
+.msg-view .msg--user > .msg__sender {
+    display: none;
+}
+
+
 
 /******************\
  * Message Bubble *

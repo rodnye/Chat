@@ -43,7 +43,7 @@ class MessageViewComponent {
         }
         
         
-        if (sender === USER.name) {
+        if (sender === USER.nick) {
             // sender is the user!
             msgBubble.classList.add("msg--user");
         }

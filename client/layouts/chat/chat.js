@@ -5,6 +5,9 @@ let msgViewVisible;
 let msgViewsContainer;
 let chatsListView;
 
+/**
+ * create and initialize Chat Layout
+ */
 function createChatLayout () {
     const layout = new LayoutComponent("#chat-layout");
   
@@ -36,7 +39,7 @@ function createChatLayout () {
         if (!content) return;
         
         msgViewVisible.addMessage({
-            sender: USER.name,
+            sender: USER.nick,
             type: "text",
             content,
         });
@@ -52,6 +55,7 @@ function createChatLayout () {
         
         chatInput.innerText = "";
         chatInput.focus();
+        scrollToChatBottom();
     });
     
     
@@ -72,6 +76,7 @@ function createChatLayout () {
         if (msgViewVisible) msgViewVisible.hide();
         msgView.show();
         msgViewVisible = msgView;
+        scrollToChatBottom();
         
         chatLayout.show();
     });
@@ -79,3 +84,13 @@ function createChatLayout () {
     return layout;
 }
 
+
+/**
+ * scroll message views 
+ */
+function scrollToChatBottom (msgView) {
+    if (!msgView) msgView = msgViewVisible;
+    
+    const view = msgView.view;
+    view.scrollTop = view.scrollHeight;
+}

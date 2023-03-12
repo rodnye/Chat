@@ -15,5 +15,6 @@ function socketMessage (data) {
         sender: data.user_nick,
         type: "text",
         content: msgContent
-    })
+    });
+    scrollToChatBottom(msgView);
 }
