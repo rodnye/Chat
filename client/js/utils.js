@@ -3,6 +3,22 @@
  */
 
 /**
+ * Execute asynchronous the callback 
+ * 
+ * @param {function}
+ * @return {Promise}
+ */
+function execAsync (callback) {
+    return new Promise (resolve => {
+       setTimeout(() => {
+           callback();
+           resolve();
+       }, 0);
+    });
+}
+
+
+/**
  * Return a random number
  *
  * @param {number} min random number
@@ -23,12 +39,14 @@ function randomItem (array) {
     return array[randomInt(0, array.length - 1)];
 }
 
-/** Return a random and irepeat string */
-function createUid () {
-    createUid.uid += randomInt(1, 5);
-    return "uid~" + createUid.uid;
+/** Return a random and irepeat number */
+function generateNumericUid () {
+    const uid = generateNumericUid.uid + randomInt(1, 5);
+    generateNumericUid.uid = uid;
+    localStorage.setItem("uid", uid + "");
+    return uid;
 }
-createUid.uid = randomInt(1000, 5000);
+generateNumericUid.uid = parseInt(localStorage.getItem("uid")) || 100000;
 
 
 /**
