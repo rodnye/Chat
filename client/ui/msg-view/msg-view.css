@@ -55,6 +55,10 @@
 .msg__text {
     word-break: break-word;
 }
+.msg__status {
+    align-self: flex-end;
+    font-size: .7rem;
+}
 
 .msg--user {
     border-radius: 1em 0 1em 1em;

@@ -5,20 +5,23 @@
 
 class MessageViewComponent extends EventEmitter3 {
     
-    constructor (username, roomType) {
+    constructor (roomData) {
         super();
         const view = document.createElement("div");
         
         view.classList.add("msg-view");
         
-        if (roomType === "group") {
+        if (roomData.type === "group") {
             view.classList.add("msg-view--group");
         }
         
         this.view = view;
-        this.msgList = [];
-        this.username = username;
-        this.roomType = roomType;
+        this.msgMap = {};
+        this.msgElementMap = {};
+        this.msgArrivIdMap = {};
+        this.roomId = roomData.id;
+        this.roomName = roomData.name;
+        this.roomType = roomData.type;
         
         this.hide();
     }
@@ -27,9 +30,16 @@ class MessageViewComponent extends EventEmitter3 {
     /**
      * add a new message in view
      */
-    addMessage ({sender, id, content, type, index}) {
+    addMessage ({
+        sender, 
+        msgId, 
+        msgArrivId, // optional
+        content, 
+        type
+    }) {
         const view = this.view;
         const msgList = this.msgList;
+        const msgMap = this.msgMap;
         const msgBubble = document.createElement("div");
         
         msgBubble.classList.add("msg");
@@ -44,19 +54,11 @@ class MessageViewComponent extends EventEmitter3 {
             msgBubble.appendChild(msgSender);
         }
         
-        
-        if (sender === USER.nick) {
-            // sender is the user!
-            msgBubble.classList.add("msg--user");
-        }
-        else {
-            msgBubble.classList.add("msg--contact");
-        }
-        
-        
         //
         // add message content
         //
+        view.appendChild(msgBubble);
+       
         if (!type || type === "text") {
             // is a text message!
             const msgText = document.createElement("div");
@@ -65,28 +67,69 @@ class MessageViewComponent extends EventEmitter3 {
             msgBubble.appendChild(msgText);
         }
         
+        
+        if (sender === USER.nick) {
+            // sender is the user!
+            // add clock
+            const msgStatusIcon = document.createElement("i");
+            msgStatusIcon.setAttribute("class", "msg__status fa fa-clock");
+            
+            msgBubble.classList.add("msg--user");
+            msgBubble.appendChild(msgStatusIcon);
+        }
+        else {
+            msgBubble.classList.add("msg--contact");
+        }
 
         
         //
         // add message to register
         //
-        const msgData = {sender, content, type, id};
+        const msgData = {
+            msgId,
+            msgArrivId,
+            sender, 
+            content, 
+            type, 
+        };
         
-        if (msgList.length || typeof index === "undefined") {
-            msgList.push(msgData);
-            view.appendChild(msgBubble);
-        }
-        else {
-            const elements = view.getElementsByClassName("msg");
-            view.insertBefore(msgBubble, elements[index]);
-            msgList.splice(index, 0, msgData);
-        }
+        msgMap[msgId] = msgData;
+        this.msgElementMap[msgId] = msgBubble;
+        
+        // if message arrived
+        if (msgArrivId) this.setMessageArrived(msgId, msgArrivId);
         
         // emit event
         this.emit("add-msg", {
-            sender, id, content, type
+            sender, 
+            msgId, 
+            msgArrivId,
+            content, 
+            type,
+            roomId: this.roomId,
         });
     }
+    
+    /**
+     * arrive message to server (only user's own messages)
+     */
+    setMessageArrived (msgId, msgArrivId) {
+        const msgBubble = this.msgElementMap[msgId];
+        const msgStatusIcon = msgBubble.querySelector(".msg__status");
+        
+        msgStatusIcon.setAttribute("class", "msg__status");
+       
+        this.msgMap[msgId].msgArrivId = msgArrivId;
+        this.msgArrivIdMap[msgArrivId] = msgId;
+        
+        // emit event
+        this.emit("arriv-msg", {
+            msgId,
+            msgArrivId,
+            roomId: this.roomId,
+        });
+    }
+    
     
     /**
      * visibility 
