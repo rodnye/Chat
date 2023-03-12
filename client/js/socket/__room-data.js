@@ -19,15 +19,6 @@ function socketRoomData (rooms) {
         };
         
         
-        if (!msgView) {
-            // initialize this chat UI
-            msgView = new MessageViewComponent(roomName, roomType);
-            msgView.roomId = roomId;
-            
-            msgViews[roomId] = msgView;
-            msgViewsContainer.appendChild(msgView.view);
-        }
-        
         if (!room) {
             // initialize new room
             room = {
@@ -35,7 +26,6 @@ function socketRoomData (rooms) {
                 type: roomRes.type,
                 name: roomRes.name,
             };
-            room.msgs = msgView.msgList;
         }
         else {
             const lastMsg = room.msgs[room.msgs.length - 1];
@@ -44,26 +34,51 @@ function socketRoomData (rooms) {
             }
         }
         
+        if (!msgView) {
+            // initialize this chat UI
+            msgView = new MessageViewComponent(roomName, roomType);
+            const chatListItem = chatListView.addItem({
+                title: room.name,
+                text: "",
+                icon: room.type === "group" ? groupIcon : userIcon,
+            });
+            chatListItem.roomType = room.type;
+            chatListItem.roomId = room.id;
+            
+            msgView.roomId = roomId;
+            msgView.addListener("add-msg", onMsgViewMessage, chatListItem);
+            
+            room.msgs = msgView.msgList;
+            msgView.chatListItem = chatListItem;
+            msgViews[roomId] = msgView;
+            msgViewsContainer.appendChild(msgView.view);
+        }
+        
+        
+        
         ROOMS[roomId] = room;
         msgRequestData.push(msgRequest);
     });
     
     
-    // render the chats in list
-    for (let roomId in ROOMS) {
-        const room = ROOMS[roomId];
-        const item = chatsListView.addItem({
-            title: room.name,
-            text: "",
-            icon: room.type === "group" ? groupIcon : userIcon,
-        });
-        item.roomType = room.type;
-        item.roomId = room.id;
-    };
     
     // emit the rooms request
     socket.emit("get-room-mess", msgRequestData);
     
     stg.setData("rooms", ROOMS);
     loading.hide();
+}
+
+
+/**
+ * Event: add message to MessageView
+ */
+function onMsgViewMessage ({sender, content}) {
+    const chatListItem = this;
+    
+    let text;
+    if (USER.nick === sender) text = "Yo: " + content;
+    else text = sender + ":" + content;
+    
+    chatListItem.setText(text);
 }

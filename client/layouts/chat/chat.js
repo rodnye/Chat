@@ -3,7 +3,7 @@
 const msgViews = {};
 let msgViewVisible;
 let msgViewsContainer;
-let chatsListView;
+let chatListView;
 
 /**
  * create and initialize Chat Layout
@@ -11,7 +11,7 @@ let chatsListView;
 function createChatLayout () {
     const layout = new LayoutComponent("#chat-layout");
   
-    chatsListView = new ListViewComponent("#main-layout > .list-view");
+    chatListView = new ListViewComponent("#main-layout > .list-view");
     msgViewsContainer = layout.E("#chat-body");
     
     const contactNameEl = layout.E(".contact-name");
@@ -61,9 +61,9 @@ function createChatLayout () {
     
     
     /**
-     * Event: chatsListView items
+     * Event: chatListView items
      */
-    chatsListView.addListener("click", item => {
+    chatListView.addListener("click", item => {
         const roomId = item.roomId;
         const roomName = item.title;
         let room = ROOMS[roomId];
