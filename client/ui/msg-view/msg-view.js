@@ -3,10 +3,12 @@
  */
  
 
-class MessageViewComponent {
+class MessageViewComponent extends EventEmitter3 {
     
     constructor (username, roomType) {
+        super();
         const view = document.createElement("div");
+        
         view.classList.add("msg-view");
         
         if (roomType === "group") {
@@ -79,6 +81,11 @@ class MessageViewComponent {
             view.insertBefore(msgBubble, elements[index]);
             msgList.splice(index, 0, msgData);
         }
+        
+        // emit event
+        this.emit("add-msg", {
+            sender, id, content, type
+        });
     }
     
     /**

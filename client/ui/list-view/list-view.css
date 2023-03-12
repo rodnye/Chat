@@ -26,7 +26,7 @@
 }
 
 /* icon */
-.list-view__item > span {
+.list-view__item-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -55,9 +55,18 @@
     color: var(--app-accent-font-color);
 }
 
-/* complements */
-.text-overflow {
+
+/* text title */
+.list-view__item-title {
+    font-weight: bold;
+}
+
+/* text content */
+.list-view__item-text {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    
+    font-style: italic;
+    color: gray;
 }

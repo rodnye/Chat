@@ -14,10 +14,13 @@ class Item_ListViewComponent {
         const itemEl = document.createElement("li");
         const iconBox = document.createElement("span");
         const contentBox = document.createElement("div");
-        const titleEl = document.createElement("strong");
+        const titleEl = document.createElement("p");
         const textEl = document.createElement("p");
         
-        itemEl.setAttribute("class", "list-view__item");
+        itemEl.classList.add("list-view__item");
+        iconBox.classList.add("list-view__item-icon");
+        titleEl.classList.add("list-view__item-title");
+        textEl.classList.add("list-view__item-text");
         
         contentBox.appendChild(titleEl);
         contentBox.appendChild(textEl);
@@ -81,7 +84,11 @@ class Item_ListViewComponent {
         // icon is a Font Awesome Icon!
         if (typeof icon === "string") {
             const iconEl = document.createElement("i");
-            iconEl.setAttribute("class", "fa " + icon);
+            iconEl.classList.add("fa");
+            
+            for (let classToken of icon.split(" ")) {
+                iconEl.classList.add(classToken);
+            }
             iconBox.appendChild(iconEl);
         } 
         

@@ -9,9 +9,10 @@
  * @constructor
  * @param {string} css selector of element
  */
-class ListViewComponent {
+class ListViewComponent extends EventEmitter3 {
     
     constructor (selector) {
+        super();
         const listView = document.querySelector(selector);
         const items = listView.getElementsByClassName("list-view__item");
 
@@ -20,6 +21,22 @@ class ListViewComponent {
         
         // link to use element
         this.element = listView;
+        
+        
+        listView.addEventListener("click", event => {
+            let itemEl = event.target;
+            
+            // find the li element in target
+            let limit = 3;
+            while (!itemEl.dataset.title) {
+               itemEl = itemEl.parentNode;
+               if (!limit) return;
+               limit --;
+            }
+            
+            const item = this.getItemByTitle(itemEl.dataset.title);
+            this.emit("click", item);
+        });
     }
 
     /**
@@ -81,7 +98,7 @@ class ListViewComponent {
      * @see Item_ListViewComponent constructor
      * @return {Item_ListViewComponent}
      */
-    addItem(itemData) {
+    addItem (itemData) {
         const item = new Item_ListViewComponent(itemData);
         this.listView.appendChild(item.element);
         this.items.push(item);
@@ -108,27 +125,5 @@ class ListViewComponent {
                 behavior: "smooth"
             });
         }
-    }
-    
-    
-    /**
-     * Add a listener
-     */
-    addListener (eventName, callback) {
-       
-        this.listView.addEventListener(eventName, event => {
-            let itemEl = event.target;
-            
-            // find the li element in target
-            let limit = 3;
-            while (!itemEl.dataset.title) {
-               itemEl = itemEl.parentNode;
-               if (!limit) return;
-               limit --;
-            }
-            const item = this.getItemByTitle(itemEl.dataset.title);
-            callback(item);
-        });
-        
     }
 }
