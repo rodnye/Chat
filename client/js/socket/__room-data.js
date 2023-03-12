@@ -11,44 +11,58 @@ function socketRoomData (rooms) {
         
         let room = ROOMS[roomId];
         let msgView = msgViews[roomId];
-      
+        
+        
+        // message request to server
         const msgRequest = {
             chat_id: roomId, 
-            date: 0, // get all msg from this date 
-                     // 0 => all msg from user join
+            date: 0,
         };
         
         
         if (!room) {
-            // initialize new room
+            // room not stored!
+            // initialize 
             room = {
                 id: roomRes.chat_id,
                 type: roomRes.type,
                 name: roomRes.name,
             };
         }
-        else {
-            const lastMsg = room.msgs[room.msgs.length - 1];
-            if (lastMsg) {
-               msgRequest.date = lastMsg.date;
-            }
-        }
         
         if (!msgView) {
-            // initialize this chat UI
-            msgView = new MessageViewComponent(roomName, roomType);
+            // room not render!
+            // initialize UI
+            msgView = new MessageViewComponent(room);
+            const msgMap = msgView.msgMap;   // message map
             const chatListItem = chatListView.addItem({
                 title: room.name,
                 text: "",
                 icon: room.type === "group" ? groupIcon : userIcon,
             });
+            
             chatListItem.roomType = room.type;
             chatListItem.roomId = room.id;
             
             msgView.roomId = roomId;
             msgView.addListener("add-msg", onMsgViewMessage, chatListItem);
+            msgView.addListener("arriv-msg", onMsgViewMessageArrived);
             
-            room.msgs = msgView.msgList;
+            
+            const msgMapStored = room.msgMap;
+            const msgArrivIdMapStored = room.msgArrivIds;
+           
+            room.msgMap = msgView.msgMap;
+            room.msgArrivIds = msgView.msgArrivIdMap;
+            
+            // if there are messages stored, render them asynchronously
+            if (msgMapStored) execAsync(() => {
+                for (let msgId in msgMapStored) {
+                    const msgData = msgMapStored[msgId];
+                    msgView.addMessage(msgData);
+                }
+            });
+            
             msgView.chatListItem = chatListItem;
             msgViews[roomId] = msgView;
             msgViewsContainer.appendChild(msgView.view);
@@ -74,11 +88,21 @@ function socketRoomData (rooms) {
  * Event: add message to MessageView
  */
 function onMsgViewMessage ({sender, content}) {
-    const chatListItem = this;
+    const chatListItem = this; //context
     
     let text;
     if (USER.nick === sender) text = "Yo: " + content;
     else text = sender + ":" + content;
     
     chatListItem.setText(text);
+    stg.setData("rooms", ROOMS);
+}
+
+
+
+/**
+ * Event: message arrived on the server
+ */
+function onMsgViewMessageArrived ({msgView, msgId, msgArrivId}) {
+    stg.setData("rooms", ROOMS);
 }

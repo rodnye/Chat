@@ -38,15 +38,17 @@ function createChatLayout () {
         const content = chatInput.innerText.trim();
         if (!content) return;
         
+        const msgId = generateNumericUid();
         msgViewVisible.addMessage({
             sender: USER.nick,
             type: "text",
             content,
+            msgId,
         });
         
         // send message
         socket.emit("message", {
-            arriv_id: randomInt(1000, 9999),
+            arriv_id: msgId,
             chat_id: msgViewVisible.roomId,
             user_nick: USER.nick,
             type: "text",

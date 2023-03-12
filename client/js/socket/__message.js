@@ -18,3 +18,19 @@ function socketMessage (data) {
     });
     scrollToChatBottom(msgView);
 }
+
+
+/**
+ * Socket Arriv Message 
+ * confirmation of sent Message
+ */
+function socketArrivMessage (data) {
+    const roomId = data.chat_id;
+    const msgArrivId = data.mess_id;
+    const msgId = data.arriv_id;
+    
+    const msgView = msgViews[roomId];
+    msgView.setMessageArrived(msgId, msgArrivId);
+}
+
+
