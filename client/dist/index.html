@@ -1,0 +1,166 @@
+<html lang="es"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/node_modules/eruda/eruda.js" onload="eruda.init()"></script><link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap-utilities.min.css"><link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css"><script src="/node_modules/socket.io/client-dist/socket.io.min.js"></script><script src="/node_modules/eventemitter3/umd/eventemitter3.min.js"></script><script src="/public/index.js"></script><link href="/public/index.css" rel="stylesheet"></head>
+
+<body onload="main()">
+
+
+<div id="auth-layout" class="layout">
+    
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal__dialog">
+            
+            <div class="modal__header"> Acceder </div>
+            
+            <div class="modal__body align-items-start">
+                <div> Usuario: <input name="name"> </div>
+                <div> Contraseña: <input type="password" name="pass"> </div>
+                <span class="link mt-3">¿Aún no tienes una cuenta?</span>
+            </div>
+           
+            <div class="modal__footer">
+                <button class="btn"> Acceder </button>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <!-- SignUp Modal -->
+    <div id="signup-modal" class="modal">
+        <div class="modal__dialog">
+            
+            <div class="modal__header"> Registrarse </div>
+            
+            <div class="modal__body align-items-start">
+                <div> Usuario: <input name="name"> </div>
+                <div> Email: <input name="email"> </div>
+                <div> Contraseña: <input type="password" name="pass"> </div>
+                <div> Repita su contraseña: <input type="password" name="rpass"> </div>
+                <span class="link mt-3">Iniciar sesión</span>
+            </div>
+           
+            <div class="modal__footer">
+                <button class="btn"> Acceder </button>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+
+
+<div id="chat-layout" class="layout">
+    <div class="navbar">
+        <div class="navbar__left">
+            <i class="btn-back fa fa-arrow-left fa-lg"></i>
+        </div>
+
+        <div class="navbar__center d-flex flex-row justify-content-start align-items-center">
+            <div class="contact-picture"></div>
+            <div class="d-flex flex-column ms-2">
+                <p class="contact-name">null</p>
+                <p class="contact-state">null</p>
+            </div>
+        </div>
+
+        <div class="navbar__right">
+            <i class="fa fa-ellipsis-v fa-lg"></i>
+        </div>
+    </div>
+    
+    
+    <!-- Chats -->
+    <div id="chat-body"></div>
+    
+    
+    <!-- Chat action bar -->
+    <div class="chatbar">
+        <div class="chatbar__left">
+            <i class="fa fa-smile"></i>
+            <div class="chatbar__input" contenteditable="true"></div>
+            <i class="fa fa-paperclip"></i>
+        </div>
+        <div class="chatbar__submit">
+            <i class="fa fa-paper-plane"></i>
+        </div>
+    </div>
+</div>
+
+
+<div id="contacts-layout" class="layout">
+    
+    <!-- NAV BAR -->
+    <div class="navbar">
+        <div class="navbar__left">
+            <i class="fa fa-arrow-left fa-lg"></i>
+        </div>
+        <div class="navbar__center">
+            <h2> Amigos </h2>
+        </div>
+    </div>
+    
+    <!-- Contacts List -->
+    <ul class="list-view"></ul>
+    
+    
+    <!-- Create Contacts Modal -->
+    <div class="modal">
+        <div class="modal__dialog">
+            
+            <div class="modal__header"> Añadir Amigo </div>
+            
+            <div class="modal__body align-items-start">
+                 Usuario: <input name="name">
+            </div>
+           
+            <div class="modal__footer">
+                <button class="btn"> <i class="fa fa-arrow-left"></i> </button>
+                <button class="btn"> <i class="fa fa-user-plus"></i> </button>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <!-- Add Contact -->
+    <div class="fab">
+        <i class="fa fa-user-plus"></i>
+    </div>
+    
+</div>
+
+
+<!-- Loading Modal -->
+<div id="loading-modal" class="modal">
+    <div class="modal__dialog">
+        <div class="loading-text"></div>
+        <div class="lds-ellipsis"></div>
+    </div>
+</div>
+
+
+<div id="main-layout" class="layout">
+
+    <div class="navbar">
+        <div class="navbar__left">
+            <i id="btn-open-drawer" class="fa fa-bars fa-lg"></i>
+        </div>
+        <div class="navbar__center">
+            <h2> {{ APP_NAME }} </h2>
+        </div>
+        <div class="navbar__right">
+            <i id="btn-open-main-menu" class="fa fa-ellipsis-v fa-lg"></i>
+        </div>
+    </div>
+    
+    
+    
+    <ul class="list-view"></ul>
+
+    <div class="fab">
+        <i class="fa fa-comment fa-lg"></i>
+    </div>
+</div></body></html>

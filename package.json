@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "main": "main.js",
     "scripts": {
-        "start": "node main.js",
+        "start": "gulp build && node main.js",
+        "build": "gulp build",
         "test": "TEST=true node main.js"
     },
     "repository": {
@@ -22,6 +23,11 @@
         "eruda": "^2.10.0",
         "bootstrap": "^5.2.3",
         "@fortawesome/fontawesome-free": "^6.3.0",
-        "eventemitter3": "^3.1.2"
+        "eventemitter3": "^3.1.2",
+        "assign-symbols": "^1.0.0"
+    },
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "jsdom": "^21.1.1"
     }
 }

@@ -3,14 +3,10 @@
  */
  
 // globals
-const APP_NAME = "Chat";
-const ROOMS = stg.getData("rooms", {});
-const CONTACTS = stg.getData("contacts", {});
-const USER = stg.getData("user", {
-    name:  null,
-    pass:  null,
-    token: null,
-});
+let APP_NAME = "Chat";
+let ROOMS;
+let CONTACTS;
+let USER;
 
 // layouts
 let loading;
@@ -19,6 +15,15 @@ let mainLayout;
 
 
 function main () {
+    
+    // globals
+    ROOMS = stg.getData("rooms", {});
+    CONTACTS = stg.getData("contacts", {});
+    USER = stg.getData("user", {
+        name:  null,
+        pass:  null,
+        token: null,
+    });
     
     // init loading screen
     loading = createLoading();

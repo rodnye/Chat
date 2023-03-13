@@ -15,7 +15,7 @@ module.exports = {
     PASSDB: "iumY3s8nHJ",
     PORTDB: "3306",
     DIR: __dirname,
-    CLIENT: __dirname + "/client",
+    CLIENT: __dirname + "/client/dist",
     LOGIC: __dirname + "/server/logic",
     LOGS: __dirname + "/logs",
     TOKEN: {
