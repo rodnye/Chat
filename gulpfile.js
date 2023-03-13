@@ -1,9 +1,10 @@
+
 const gulp = require("gulp");
 const fs = require("fs");
-const { JSDOM } = require("jsdom");
 
 const config = require("./config.js");
 const readRecursiveDirSync = require("./client/__read-recursive.js");
+const { DOMElement, createFullDocument } = require("./client/__virtual-dom.js");
 const router = require("./client/__router.js");
 
 
@@ -17,13 +18,10 @@ gulp.task("build", end => {
     let buildHTMLFile = "";
     let buildCSSFile = "";
     
-    // html index content
-    const htmlFile = fs.readFileSync("./client/src/index.html");
-    
-    // document manager
-    const { document } = new JSDOM(htmlFile).window;
-    const headElement = document.querySelector("head");
-    const bodyElement = document.querySelector("body");
+    // html element
+    const htmlElement = createFullDocument();
+    const headElement = htmlElement.children[0];
+    const bodyElement = htmlElement.children[1];
     
     // add scripts, link and html elements
     const match = /(\.js|\.html|\.css)$/;
@@ -46,26 +44,29 @@ gulp.task("build", end => {
         const onload = params[2];
        
         let element;
-        if (type === "js") {
-            element = document.createElement("script");
-            element.src = url;
-        }
+        if (type === "js") element = new DOMElement("script", {src: url});
         else if (type === "css") {
-            element = document.createElement("link");
-            element.rel = "stylesheet";
-            element.href = url;
+            element = new DOMElement("link", {
+                rel: "stylesheet",
+                href: url
+            });
         }
-        if (onload) element.setAttribute("onload", onload);
+        if (onload) element.setAttr("onload", onload);
         headElement.appendChild(element);
     }
     
-    if (router.onload) bodyElement.setAttribute("onload", router.onload);
+    if (router.onload) bodyElement.setAttr("onload", router.onload);
     
     // set to document
-    headElement.innerHTML += "<script src='/public/index.js'></script>";
-    headElement.innerHTML += "<link href='/public/index.css' rel='stylesheet'>";
     bodyElement.innerHTML = buildHTMLFile;
-    buildHTMLFile = document.querySelector("html").outerHTML;
+    headElement.appendChild(
+        new DOMElement("script", {src:"/public/index.js"}),
+        new DOMElement("link", {
+            href: "/public/index.css",
+            rel: "stylesheet"
+        }),
+    );
+    buildHTMLFile = "<!DOCTYPE html>" + htmlElement.render();
     
     // build files
     fs.writeFileSync("./client/dist/index.html", buildHTMLFile, "utf8");
