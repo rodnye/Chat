@@ -33,17 +33,17 @@
 \******************/
 
 .msg {
-    background: var(--primary-bg);
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+    position: relative;
     
-    padding: 6px 13px;
-    margin: 6px 0;
+    background: var(--primary-bg);
+    padding: .4em .6em;
+    margin: .4em 0;
     max-width: 75%;
     min-width: 28%;
     min-height: 1.5rem;
-
 }
 
 .msg__sender {
@@ -56,7 +56,9 @@
     word-break: break-word;
 }
 .msg__status {
-    align-self: flex-end;
+    position: absolute;
+    bottom: .15rem;
+    right: .15rem;
     font-size: .7rem;
 }
 

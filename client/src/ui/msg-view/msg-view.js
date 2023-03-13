@@ -117,7 +117,7 @@ class MessageViewComponent extends EventEmitter3 {
         const msgBubble = this.msgElementMap[msgId];
         const msgStatusIcon = msgBubble.querySelector(".msg__status");
         
-        msgStatusIcon.setAttribute("class", "msg__status");
+        msgStatusIcon.setAttribute("class", "msg__status fa fa-check");
        
         this.msgMap[msgId].msgArrivId = msgArrivId;
         this.msgArrivIdMap[msgArrivId] = msgId;
