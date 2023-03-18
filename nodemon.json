@@ -1,0 +1,8 @@
+{
+    "watch": [
+        "client/src/**/*",
+        "client/router.js"
+    ],
+    "ext": "html css js",
+    "exec": "gulp build"
+}
