@@ -1,12 +1,12 @@
 
 function createFullDocument () {
-    const html = new DOMElement("html", {lang: "es"});
-    const head = new DOMElement("head", {});
-    const body = new DOMElement("body", {});
+    const html = new Element("html", {lang: "es"});
+    const head = new Element("head", {});
+    const body = new Element("body", {});
     
     head.appendChild(
-        new DOMElement("meta", {charset: "utf8"}),
-        new DOMElement("meta", {
+        new Element("meta", {charset: "utf8"}),
+        new Element("meta", {
             name: "viewport", 
             content: "width=device-width, initial-scale=1.0"
         }),
@@ -18,7 +18,7 @@ function createFullDocument () {
 /**
  * a simple dom element
  */
-class DOMElement {
+class Element {
     constructor (tag, attrMap) {
         this.tag = tag.toLowerCase();
         this.attrMap = attrMap || {};
@@ -29,7 +29,7 @@ class DOMElement {
     // show string content
     set innerHTML (text) {
         this.removeAllChilds();
-        this.appendChild(new DOMTextNode(text));
+        this.appendChild(new TextNode(text));
     }
     get innerHTML () {
         let innerHTML = "";
@@ -86,7 +86,7 @@ class DOMElement {
 }
 
 
-class DOMTextNode {
+class TextNode {
     constructor (text) {
         this.parentNode = null;
         this.textContent = text;
@@ -96,7 +96,7 @@ class DOMTextNode {
 }
 
 module.exports = {
-    DOMElement,
-    DOMTextNode,
+    Element,
+    TextNode,
     createFullDocument,
 }
