@@ -60,10 +60,12 @@ function bundler (options = {}) {
         const [ext] = match.exec(fileName) || [];
         
         if (ext && !ignoreFiles.includes(fileName)) {
-            const concatFile = "\n\n\n" + fs.readFileSync(fileName, "UTF-8");
-            if (ext === ".js") buildJSFile += concatFile;
-            if (ext === ".css") buildCSSFile += concatFile;
-            if (ext === ".html") buildHTMLFile += concatFile;
+            const concatFile = fs.readFileSync(fileName, "UTF-8").trim() + "\n\n";
+            const relativeFileName = fileName.replace(srcDir, "");
+            
+            if (ext === ".js") buildJSFile += "\n\n///\n///\n/// - " + relativeFileName + "\n///\n///\n\n" + concatFile;
+            if (ext === ".css") buildCSSFile += "\n\n/*!\n *\n * " + relativeFileName + "\n *\n */\n\n" + concatFile;
+            if (ext === ".html") buildHTMLFile += "\n\n<!--\n--- " + relativeFileName + " ---\n-->\n\n" +  concatFile;
         }
     });
     
