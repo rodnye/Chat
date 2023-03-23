@@ -14,6 +14,7 @@ function socketMessage (data) {
     msgView.addMessage({
         sender: data.user_nick,
         type: "text",
+        msgReplyId: data.reply,
         content: msgContent
     });
     scrollToChatBottom(msgView);

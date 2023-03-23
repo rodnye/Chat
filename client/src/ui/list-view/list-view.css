@@ -64,7 +64,6 @@
 /* text content */
 .list-view__item-text {
     text-overflow: ellipsis;
-    overflow: hidden;
     white-space: nowrap;
     
     font-style: italic;

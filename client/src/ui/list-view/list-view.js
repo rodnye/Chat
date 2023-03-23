@@ -24,15 +24,11 @@ class ListViewComponent extends EventEmitter3 {
         
         
         listView.addEventListener("click", event => {
-            let itemEl = event.target;
+            let itemEl = findParentElement(event.target, element => {
+                return element.classList && element.classList.contains("list-view__item");
+            }, 3);
             
-            // find the li element in target
-            let limit = 3;
-            while (!itemEl.dataset.title) {
-               itemEl = itemEl.parentNode;
-               if (!limit) return;
-               limit --;
-            }
+            if (!itemEl) return;
             
             const item = this.getItemByTitle(itemEl.dataset.title);
             this.emit("click", item);

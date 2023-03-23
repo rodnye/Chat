@@ -1,0 +1,108 @@
+
+.chatbar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    flex-shrink: 0;
+    
+    width: 100%;
+    padding: .5em .2em;
+    color: var(--primary-color);
+}
+.chatbar .fa {
+    font-size: 1.3em;
+}
+
+
+
+/***************\
+ * Left - Side *
+\***************/
+.chatbar__left {
+    --border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+    
+    border-radius: var(--border-radius);
+    margin-right: .3em;
+    background: var(--primary-bg);
+}
+
+/** 
+ * Box to show selected message reply 
+ * @use with "reply-box"
+ */
+.chatbar__reply-box.reply-box {
+    height: 0;
+    padding: 0 .5em;
+    margin: .4em;
+    
+    transition-duration: .3s;
+    transition-property: padding, height;
+}
+.chatbar__reply-box--show.reply-box {
+    height: auto;
+    padding: .5rem;
+}
+.reply-box__cancel {
+    position: absolute;
+    top: .8rem;
+    right: .8rem;
+    font-size: .8rem;
+    color: var(--primary-bg);
+}
+
+
+/**
+ * Box contain edit buttons and edit text
+ */
+.chatbar__input-box {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    min-height: 3em;
+}
+
+    /* edit buttons */
+    .chatbar__input-box > .fa {
+        margin: .6em;
+    }
+
+    /* edit text */
+   .chatbar__input {
+       flex-grow: 1;
+       align-self: center;
+
+       max-height: 5rem;
+       margin: .6em 0;
+       overflow: scroll;
+       word-break: break-word;
+       outline: none;
+    }
+
+    .chatbar__input:empty:before {
+        content: "Escribe un mensaje...";
+        color: var(--primary-color);
+        opacity: .7;
+    }
+
+
+
+/****************\
+ * Right - Side *
+\****************/
+.chatbar__submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 3em;
+    height: 3em;
+    flex-shrink: 0;
+
+    border-radius: 100px;
+    background: var(--primary-bg);
+    color: var(--primary-color);
+}

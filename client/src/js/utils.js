@@ -2,6 +2,28 @@
  * Utils
  */
 
+
+/**
+ * loop parent elements recursively 
+ * 
+ * @param {HTMLElement} element 
+ * @param {function} evaluate - function to compare and return boolean if find 
+ * @param {number} limit (optional) - limit of calls
+ */
+function findParentElement (element, evaluate, limit = 3) {
+    if (!element) return null;
+    
+    const parent = element.parentNode;
+    if (parent) {
+        if (evaluate(parent)) return parent;
+        else if (limit) return findParentElement(parent, evaluate, limit - 1);
+    }
+    
+    return null;
+}
+
+
+
 /**
  * Execute asynchronous the callback 
  * 

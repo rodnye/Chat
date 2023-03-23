@@ -46,6 +46,8 @@ function socketRoomData (rooms) {
             
             msgView.roomId = roomId;
             msgView.addListener("add-msg", onMsgViewMessage, chatListItem);
+            msgView.addListener("swipe-msg", onMsgViewSelectReply, chatListItem);
+            msgView.addListener("dblclick-msg", onMsgViewSelectReply, chatListItem);
             msgView.addListener("arriv-msg", onMsgViewMessageArrived);
             
             
@@ -85,7 +87,9 @@ function socketRoomData (rooms) {
 
 
 /**
- * Event: add message to MessageView
+ * Event: add message to MessageView 
+ * 
+ * @context {Item_ListViewComponent}
  */
 function onMsgViewMessage ({sender, content}) {
     const chatListItem = this; //context
@@ -94,8 +98,23 @@ function onMsgViewMessage ({sender, content}) {
     if (USER.nick === sender) text = "Yo: " + content;
     else text = sender + ":" + content;
     
-    chatListItem.setText(text);
+    chatListItem.setText(text.replace("\n", "  "));
     stg.setData("rooms", ROOMS);
+}
+
+
+/**
+ * Event: select reply msg 
+ * 
+ * @context {Item_ListViewComponent}
+ */
+function onMsgViewSelectReply ({msgId}) {
+    const roomId = this.roomId;
+    selectMsgReply({
+        msgId, 
+        roomId
+    });
+    chatInput.focus();
 }
 
 

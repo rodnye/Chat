@@ -33,17 +33,18 @@
 \******************/
 
 .msg {
+    --border-radius: 1em;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
     position: relative;
     
     background: var(--primary-bg);
-    padding: .4em .6em;
     margin: .4em 0;
+    padding: .1em;
     max-width: 75%;
     min-width: 28%;
-    min-height: 1.5rem;
+    min-height: 1.5em;
 }
 
 .msg__sender {
@@ -55,19 +56,55 @@
 .msg__text {
     word-break: break-word;
 }
-.msg__status {
-    position: absolute;
-    bottom: .15rem;
-    right: .15rem;
-    font-size: .7rem;
+.msg__sender,
+.msg__text {
+    margin: 0 .6em;
 }
 
+.msg__status {
+    position: absolute;
+    bottom: .15em;
+    right: .15em;
+    font-size: .7em;
+}
+
+
+.msg__reply-box {
+    font-size: 1em;
+}
+.reply-box {
+    position: relative;
+    padding: .2em;
+    margin: .1em;
+    overflow-y: hidden;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+    
+    color: var(--body-color);
+    background: var(--body-bg);
+    border-radius: var(--border-radius) var(--border-radius) .1em .1em;
+}
+    .reply-box__sender {
+        font-weight: bold;
+        font-size: .8em;
+    }
+    .reply-box__text {
+        font-size: .6em;
+        flex-grow: 1;
+        max-height: 1.8em;
+        overflow-y: hidden;
+    }
+
+
 .msg--user {
-    border-radius: 1em 0 1em 1em;
+    border-radius: var(--border-radius) 0 var(--border-radius) var(--border-radius);
     align-self: flex-end;
 }
 
 .msg--contact {
-    border-radius: 0 1em 1em 1em;
+    border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius);
     align-self: flex-start;
 }

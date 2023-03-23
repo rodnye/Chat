@@ -1,11 +1,18 @@
 /**
- * Messages View Component
+ * Messages View Component 
+ * 
+ * @param {RoomData} 
+ * @param options.disableSwipe {boolean} 
+ * 
+ * @event add-msg
+ * @event arriv-msg
+ * @event dblclick-msg
+ * @event swipe-msg
  */
- 
 
 class MessageViewComponent extends EventEmitter3 {
     
-    constructor (roomData) {
+    constructor (roomData, options = {}) {
         super();
         const view = document.createElement("div");
         
@@ -13,6 +20,74 @@ class MessageViewComponent extends EventEmitter3 {
         
         if (roomData.type === "group") {
             view.classList.add("msg-view--group");
+        }
+        
+        
+        function findMsgBubble (element) {
+            return findParentElement(element, element => {
+                return element.classList.contains("msg");
+            }, 3);
+        }
+        
+        // 
+        // Event: double click msg bubble
+        //
+        view.addEventListener("dblclick", event => {
+            const msgBubble = findMsgBubble(event.target);
+            if (!msgBubble) return;
+            
+            let msgId = msgBubble.dataset.msgId;
+            this.emit("dblclick-msg", this.msgMap[msgId]);
+        });
+        
+        //
+        // Event: swipe msg bubble
+        //
+        if (!options.disableSwipe) {
+            let msgBubbleMoving = null;
+            let msgData = null;
+            let mouseStartX = 0;
+            let movementX = 0;
+
+            // start swipe
+            view.addEventListener("touchstart", event => {
+                event = event.targetTouches[0];
+                const msgBubble = findMsgBubble(event.target);
+                if (!msgBubble) return;
+                
+                mouseStartX = event.pageX;
+                msgBubbleMoving = msgBubble;
+                
+                let msgId = msgBubble.dataset.msgId;
+                msgData = this.msgMap[msgId];
+            });
+            
+            // move
+            view.addEventListener("touchmove", event => {
+                event = event.targetTouches[0];
+                if (!msgBubbleMoving) return;
+                
+                let mouseX = event.pageX;
+                movementX = (mouseStartX - mouseX) / 5;
+                
+                if (movementX < 0) movementX = 0;
+                 msgBubbleMoving.style.right = movementX + "px"
+            });
+            
+            // end swipe
+            view.addEventListener("touchend", event => {
+                event = event.targetTouches[0];
+                if (!msgBubbleMoving) return;
+                
+                // emit event swipe-msg
+                if (movementX > 5) this.emit("swipe-msg", msgData);
+                
+                msgBubbleMoving.style.right = "0";
+                mouseStartX = 0;
+                movementX = 0;
+                msgBubbleMoving = null;
+                msgData = null;
+            });
         }
         
         this.view = view;
@@ -33,6 +108,7 @@ class MessageViewComponent extends EventEmitter3 {
     addMessage ({
         sender, 
         msgId, 
+        msgReplyId, // optional
         msgArrivId, // optional
         content, 
         type
@@ -43,6 +119,32 @@ class MessageViewComponent extends EventEmitter3 {
         const msgBubble = document.createElement("div");
         
         msgBubble.classList.add("msg");
+        msgBubble.dataset.msgId = msgId;
+       
+       
+        if (msgReplyId) {
+            // is replying to a message!
+            // create reply box elements
+            const msgReplyData = this.msgMap[msgReplyId];
+            const replyBox = document.createElement("div");
+            const replyBoxSender = document.createElement("div");
+            const replyBoxText = document.createElement("div");
+            
+            // set class names
+            replyBox.className = "msg__reply-box reply-box";
+            replyBoxSender.className = "reply-box__sender";
+            replyBoxText.className = "reply-box__text";
+            
+            // set content
+            replyBoxSender.innerText = 
+                 msgReplyData.sender === USER.nick ? "Tú" : msgReplyData.sender;
+            replyBoxText.innerText = msgReplyData.content;
+            
+            // add elements
+            replyBox.appendChild(replyBoxSender);
+            replyBox.appendChild(replyBoxText);
+            msgBubble.appendChild(replyBox);
+        }
         
         
         if (this.roomType == "group") {
@@ -87,6 +189,7 @@ class MessageViewComponent extends EventEmitter3 {
         //
         const msgData = {
             msgId,
+            msgReplyId,
             msgArrivId,
             sender, 
             content, 
@@ -109,6 +212,8 @@ class MessageViewComponent extends EventEmitter3 {
             roomId: this.roomId,
         });
     }
+    
+    
     
     /**
      * arrive message to server (only user's own messages)
@@ -137,3 +242,4 @@ class MessageViewComponent extends EventEmitter3 {
     show () {this.view.classList.remove("d-none")}
     hide () {this.view.classList.add("d-none")}
 }
+
