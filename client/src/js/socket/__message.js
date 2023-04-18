@@ -13,8 +13,11 @@ function socketMessage (data) {
     
     msgView.addMessage({
         sender: data.user_nick,
+        senderId: data.user_id,
+        senderColor: data.user_color,
+        
         type: "text",
-        msgReplyId: data.reply,
+        msgReplyId: msgView.msgArrivIdMap[data.reply],
         content: msgContent
     });
     scrollToChatBottom(msgView);

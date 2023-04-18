@@ -107,6 +107,9 @@ class MessageViewComponent extends EventEmitter3 {
      */
     addMessage ({
         sender, 
+        senderId, 
+        senderColor, 
+        
         msgId, 
         msgReplyId, // optional
         msgArrivId, // optional
@@ -137,7 +140,7 @@ class MessageViewComponent extends EventEmitter3 {
             
             // set content
             replyBoxSender.innerText = 
-                 msgReplyData.sender === USER.nick ? "Tú" : msgReplyData.sender;
+                 msgReplyData.senderId === USER.id ? "Tú" : msgReplyData.sender;
             replyBoxText.innerText = msgReplyData.content;
             
             // add elements
@@ -153,6 +156,7 @@ class MessageViewComponent extends EventEmitter3 {
             const msgSender = document.createElement("div");
             msgSender.classList.add("msg__sender");
             msgSender.innerText = sender;
+            msgSender.style.color = senderColor;
             msgBubble.appendChild(msgSender);
         }
         
@@ -170,7 +174,7 @@ class MessageViewComponent extends EventEmitter3 {
         }
         
         
-        if (sender === USER.nick) {
+        if (senderId === USER.id) {
             // sender is the user!
             // add clock
             const msgStatusIcon = document.createElement("i");
@@ -191,7 +195,9 @@ class MessageViewComponent extends EventEmitter3 {
             msgId,
             msgReplyId,
             msgArrivId,
+            
             sender, 
+            senderId,
             content, 
             type, 
         };
@@ -203,14 +209,11 @@ class MessageViewComponent extends EventEmitter3 {
         if (msgArrivId) this.setMessageArrived(msgId, msgArrivId);
         
         // emit event
-        this.emit("add-msg", {
-            sender, 
-            msgId, 
-            msgArrivId,
-            content, 
-            type,
-            roomId: this.roomId,
-        });
+        this.emit("add-msg", Object.assign({}, 
+            msgData, 
+            {roomId: this.roomId}
+        ));
+        
     }
     
     

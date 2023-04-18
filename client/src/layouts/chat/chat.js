@@ -62,6 +62,7 @@ function createChatLayout () {
             msgReplyId: msgView.msgReplyId,
             
             sender: USER.nick,
+            senderId: USER.id,
             type: "text",
             content,
         });
@@ -70,9 +71,10 @@ function createChatLayout () {
         socket.emit("message", {
             chat_id: msgView.roomId,
             arriv_id: msgId,
-            reply: msgView.msgMap[msgReplyId].msgArrivId || msgReplyId,
+            reply: (msgView.msgMap[msgReplyId]||{}).msgArrivId || msgReplyId,
             
             user_nick: USER.nick,
+            user_id: USER.id,
             type: "text",
             message: content,
         });
