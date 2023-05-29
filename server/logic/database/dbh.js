@@ -16,7 +16,8 @@ const MessageModel = require("./models/message.js");
 const sequelize = new Sequelize(config.DB, config.USERDB, config.PASSDB, {
     dialect: 'mysql',
     host: config.URLDB,
-    dialectOptions: {}
+    dialectOptions: {},
+    logging: false
 });
 
 (async () => {
@@ -146,6 +147,15 @@ Room.init(
             link: "global1",
             name: "Global",
             desc: "Chat global.",
+            owner: 0
+        });
+        
+        const achat = await Room.create({
+            chat_id: 1,
+            type: "group",
+            link: "admin1",
+            name: "Admin",
+            desc: "Chat Administration.",
             owner: 0
         });
     }

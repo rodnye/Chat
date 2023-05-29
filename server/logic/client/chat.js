@@ -8,8 +8,9 @@ const {
     Message,
     Op
 } = require(config.LOGIC + "/database/dbh.js");
-
+let ioc = null;
 const chat = async (io, socket, id) => {
+    ioc = io;
     const user = await User.findOne({
         where: {
             user_id: id
@@ -60,12 +61,12 @@ const chat = async (io, socket, id) => {
         }
         socket.emit("get-room-data", __r);
     });
-
+    //console.log(socket.rooms);
     socket.on("get-room-mess",
         async (data) => {
-            
+
             if (!data || !Array.isArray(data)) return;
-            
+
             let messages = [];
             for (let _m of data) {
                 if (!_m.chat_id || !_m.date) continue;
@@ -90,47 +91,7 @@ const chat = async (io, socket, id) => {
 
     socket.on("message",
         async (data) => {
-            if (!data.arriv_id || data.chat_id == undefined || !data.type || !data.message) return;
-            const mess_id = uid.num(8);
-            const room = await Room.findOne({
-                where: {
-                    chat_id: data.chat_id
-                }
-            });
-            if (!room) return socket.emit("toast", "ROOM_NOT_FOUND");
-            switch (data.type) {
-                case "text":
-                    if (data.message.length < 1 || data.message.length > 1000) return socket.emit("toast", "MESS_WRONG_LENGTH");
-                    const mess = await Message.create({
-                        mess_id: mess_id,
-                        chat_id: data.chat_id,
-                        type: data.type,
-                        user_id: id,
-                        user_nick: user_data.nickname,
-                        user_color: user_data.color,
-                        message: data.message,
-                        reply: (!isNaN(data.reply) ? data.reply: null),
-                        date: new Date().getTime()
-                    });
-                    if (mess) {
-                        await socket.broadcast.in("" + data.chat_id).emit("message", mess.getData());
-                      /*  console.log(io)
-                        io.of("/client").emit("message", mess.getData());*/
-           
-                        for (let bot of room.bots) {
-                            if (io.sockets[bot]) io.sockets[bot].emit("message", mess);
-                        }
-                        socket.emit("arriv-mess", {
-                            arriv_id: data.arriv_id,
-                            chat_id: data.chat_id,
-                            mess_id: mess_id
-                        });
-                    }
-                    break;
-                default:
-                    socket.emit("toast", "MESS_TYPE_NOT_FOUND");
-                    break;
-            }
+            await newMess(data, socket , user_data, io);
         });
 
     socket.on("create-room",
@@ -144,12 +105,12 @@ const chat = async (io, socket, id) => {
             if (config.VIP[user.vip].max_own_groups <= user.own_rooms.length) return null;
             let mem = [id];
             if (!data.members) data.members = [];
-            for (let m of members) {
+            for (let m of data.members) {
                 const memb = await User.findOne({
                     where: {
                         user_id: m
                     }
-                })
+                });
                 if (memb && memb.acceptInvitations) {
                     mem.push(m);
                 }
@@ -183,7 +144,7 @@ const chat = async (io, socket, id) => {
                 }
             }
 
-            io.of("/client").to(chat_id).emit("new-room", room);
+            io.of("/client").to(""+chat_id).emit("new-room", room);
         });
 
     socket.on("start-pv",
@@ -239,7 +200,7 @@ const chat = async (io, socket, id) => {
                 rooms: _ouser.rooms
             });
 
-            socket.join(chat_id);
+            socket.join(""+chat_id);
             if (data.chat_id) socket.emit("delete-off", {
                 chat_id: data.chat_id
             });
@@ -282,7 +243,7 @@ const chat = async (io, socket, id) => {
             if (!room.status) return socket.emit("bottomsheet", room);
 
             socket.emit("new-room", room);
-            await socket.join(room.chat_id);
+            await socket.join(""+room.chat_id);
             const mess_id = uid.num(8);
 
             const mess = await DB.newMess("SYSTEM", room.chat_id, mess_id, "text", user.name + " se ah unido al chat.");
@@ -422,4 +383,52 @@ const chat = async (io, socket, id) => {
 
 };
 
-module.exports = chat;
+const newMess = async (data, socket , user_data , io = ioc) => {
+    if (!data.arriv_id || data.chat_id == undefined || !data.type || !data.message) return;
+    const mess_id = uid.num(8);
+    const room = await Room.findOne({
+        where: {
+            chat_id: data.chat_id
+        }
+    });
+    if (!room && socket) return socket.emit("toast", "ROOM_NOT_FOUND");
+    switch (data.type) {
+        case "text":
+            if ((data.message.length < 1 || data.message.length > 1000) && socket) return socket.emit("toast", "MESS_WRONG_LENGTH");
+            const mess = await Message.create({
+                mess_id: mess_id,
+                chat_id: data.chat_id,
+                type: data.type,
+                user_id: (user_data ? user_data.user_id : 0),
+                user_nick: (user_data ? user_data.nickname : "SYSTEM"),
+                user_color: (user_data ? user_data.color : "#ff0000"),
+                message: data.message,
+                reply: (!isNaN(data.reply) ? data.reply: null),
+                date: new Date().getTime()
+            });
+            if (mess) {
+                if(socket) await socket.broadcast.in("" + data.chat_id).emit("message", mess.getData());
+                else if(io) await io.of("/client").to(""+ data.chat_id).emit("message" , mess.getData());
+                /*  console.log(io)
+                        io.of("/client").emit("message", mess.getData());*/
+
+                if(room && room.bots) for (let bot of room.bots) {
+                    if (io) if(io.sockets[bot]) io.sockets[bot].emit("message", mess);
+                }
+                if(socket) socket.emit("arriv-mess", {
+                    arriv_id: data.arriv_id,
+                    chat_id: data.chat_id,
+                    mess_id: mess_id
+                });
+            }
+            break;
+        default:
+            if(socket) socket.emit("toast", "MESS_TYPE_NOT_FOUND");
+            break;
+    }
+};
+
+module.exports = {
+    chat,
+    newMess
+};

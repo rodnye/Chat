@@ -5,6 +5,22 @@ const {
     User
 } = require(config.LOGIC + "/database/dbh.js");
 const client = require("./client/client.js");
+const {newMess} = require("./client/chat.js");
+/****************
+ * Logs in Chat *
+ ****************/
+const tempLog = console.log;
+global.console.log = function(...args){
+    let data = {
+        arriv_id : 372627,
+        chat_id: 1,
+        type: "text",
+        message: ""+ args
+        
+    };
+    newMess(data);
+    tempLog(args);
+};
 
 io.of("/client").on("connection", async (socket) => {
     if (!socket.handshake.query) {
@@ -12,6 +28,7 @@ io.of("/client").on("connection", async (socket) => {
         socket.disconnect();
         return;
     }
+    
     const token = socket.handshake.query.token;
     if (!token) {
         socket.emit("alert", "EMPTY_TOKEN")

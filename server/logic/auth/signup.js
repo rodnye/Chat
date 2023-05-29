@@ -123,6 +123,16 @@ const signup = async (req, res) => {
                 gcd.members.push(_u.user_id);
                 gchat.setData({members: gcd.members});
             }
+            let achat = await Room.findOne({
+                where: {
+                    chat_id: 1
+                }
+            });
+            if(achat){
+                const gcd = achat.getData();
+                gcd.members.push(_u.user_id);
+                achat.setData({members: gcd.members});
+            }
             return res.json({
                 status: true,
                 data: "REGISTERED"
